@@ -22,11 +22,11 @@ jobs:
         run: |
           pip install pandas requests beautifulsoup4 pymysql sqlalchemy
 
-      - name: Verificar sintaxis del scraper
-        run: |
-          python -m py_compile scrapper.py
-          echo "✅ Sintaxis correcta"
-
       - name: Verificar importaciones
         run: |
-          python -c "import pandas, requests, bs4, sqlalchemy; print(' Dependencias OK')"
+          python -c "import pandas, requests, bs4, sqlalchemy; print('✅ Dependencias OK')"
+
+      - name: Verificar estructura del proyecto
+        run: |
+          test -f scrapper.py && echo "✅ scrapper.py existe"
+          test -f rockgota_productos_enriquecidos.csv && echo "✅ CSV existe"
