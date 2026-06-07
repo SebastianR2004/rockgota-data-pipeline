@@ -1,0 +1,32 @@
+name: Rockgotá CI Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v3
+
+      - name: Configurar Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Instalar dependencias
+        run: |
+          pip install pandas requests beautifulsoup4 pymysql sqlalchemy
+
+      - name: Verificar sintaxis del scraper
+        run: |
+          python -m py_compile scrapper.py
+          echo "✅ Sintaxis correcta"
+
+      - name: Verificar importaciones
+        run: |
+          python -c "import pandas, requests, bs4, sqlalchemy; print(' Dependencias OK')"
